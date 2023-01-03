@@ -1,0 +1,10 @@
+216. Combination Sum III
+class Solution:
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        a=[1,2,3,4,5,6,7,8,9]
+        p=[i for i in combinations(a,k)]
+        l=[]
+        for i in p:
+            if i not in l and sum(i)==n:
+                l.append(i)
+        return l
