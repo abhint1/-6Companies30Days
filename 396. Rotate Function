@@ -1,0 +1,16 @@
+#Microsoft
+396. Rotate Function
+
+
+class Solution:
+    def maxRotateFunction(self, nums: List[int]) -> int:
+        r=curr=sum(i*j for i,j in enumerate(nums))
+        s=sum(nums)
+        l=len(nums)
+        while nums:
+            curr+=s-nums.pop() * l
+            r=max(r,curr)
+        return r
+
+
+        
