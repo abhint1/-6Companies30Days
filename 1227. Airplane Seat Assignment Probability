@@ -1,0 +1,22 @@
+#Microsoft
+#1227. Airplane Seat Assignment Probability
+
+class Solution:
+    def nthPersonGetsNthSeat(self, n: int) -> float:
+#1
+        if n == 1:
+            return 1
+        return 0.5
+
+
+
+
+
+
+#2
+        # prev = 1.0/n                    # Passenger 2
+        
+        # for i in range(1, n-1):         # Passenger i
+        #     prev *= (1.0 + 1.0/(n-i))
+            
+        # return (1-prev)
