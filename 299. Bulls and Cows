@@ -1,0 +1,12 @@
+#Microsoft
+299. Bulls and Cows
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        B = sum([x==y for x,y in zip(secret, guess)])
+        sec = Counter(secret)
+        print(sec)
+        gue = Counter(guess)
+        print(gue)
+        B_C =sum([min(sec[elem], gue[elem]) for elem in sec])
+        print(B_C)
+        return str(B) + "A" + str(B_C-B) + "B"
