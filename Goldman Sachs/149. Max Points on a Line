@@ -1,0 +1,42 @@
+#Goldman Sachs
+149. Max Points on a Line
+
+class Solution:
+    def maxPoints(self, points: List[List[int]]) -> int:
+        if len(points)==1:
+            return 1
+        if len(points)==2:
+            return 2
+        
+        def slope(p1,p2):
+            x1,y1=p1
+            x2,y2=p2
+
+            if x2-x1==0:
+                return float("inf")
+            else:
+                return (y2-y1)/(x2-x1)
+            
+        res=0
+        n=len(points)
+
+        for i in range(n):
+            for j in range(i+1,n):
+                
+                s=slope(points[i],points[j])
+                count=0
+                
+                for k in range(n):
+                    if k!=j and k!=i:
+                        slop=slope(points[i],points[k])
+                        if slop==s:
+                            count+=1
+                
+                res=max(res,count+2)
+                print(i,j,res)
+                
+
+        
+        return res
+
+
