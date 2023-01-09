@@ -1,0 +1,45 @@
+#Goldman Sachs
+593. Valid Square
+
+
+#1
+class Solution:
+    def des(self,p1,p2):
+        return (p1[0]-p2[0])**2+(p1[1]-p2[1])**2
+    def validSquare(self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]) -> bool:
+        s=set()
+        a=self.des(p1,p2);s.add(a)
+        b=self.des(p1,p3);s.add(b)
+        c=self.des(p1,p4);s.add(c)
+        d=self.des(p2,p3);s.add(d)
+        e=self.des(p2,p4);s.add(e)
+        f=self.des(p3,p4);s.add(f)
+        if 0 in s:
+            return False
+        else:
+            return len(s)==2
+            
+            
+            
+            
+#2
+class Solution:
+    def validSquare(self, p1: List[int], p2: List[int], p3: List[int], p4: List[int]) -> bool:
+        res=[]
+
+        def length(p1,p2):
+            x1,y1=p1
+            x2,y2=p2
+            l=((x2-x1)**2 + (y2-y1)**2)**0.5
+            return l
+        res.append(length(p1,p2))
+        res.append(length(p2,p3))
+        res.append(length(p3,p4))
+        res.append(length(p4,p1))
+        res.append(length(p1,p3))
+        res.append(length(p4,p2))
+        
+        if res.count(mode(res))==4 and mode(res)!=0:
+            return True
+        
+        return False
