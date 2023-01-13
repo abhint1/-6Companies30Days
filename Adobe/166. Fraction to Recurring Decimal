@@ -1,0 +1,55 @@
+#Adobe
+166. Fraction to Recurring Decimal
+
+
+
+
+
+class Solution:
+    def fractionToDecimal(self, n: int, d: int) -> str:
+    
+        #1
+        if d==1:
+            return str(n)
+        # result = ""
+        # result += str(num//den)
+        # result += "."
+        # quotient_num = []
+        # while num:
+        #     remainder = num % den
+        #     if remainder == 0:
+        #         for i in quotient_num:
+        #             result += str(i[-1])
+        #         break
+        #     num = remainder*10
+        #     quotient = num // den
+
+        #     if [num, quotient] not in quotient_num:
+        #         quotient_num.append([num, quotient])
+            
+        #     elif [num, quotient] in quotient_num:
+        #         index = quotient_num.index([num, quotient])
+        #         for i in quotient_num[:index]:
+        #             result += str(i[-1])
+        #         result += "("
+        #         for i in quotient_num[index:]:
+        #             result += str(i[-1])
+        #         result += ")"
+        #         break
+        # return result
+         
+         
+         
+         
+        
+        #2
+        r = ''
+        if n*d<0: r+='-'
+        n = abs(n) ; d = abs(d) ; r+= str(n//d) ; c = n%d
+        if c>0: r+='.'
+        m = {}
+        while c>0:
+            if c in m: i = m[c] ; r = r[:i]+'('+r[i:] +')' ; return r
+            else: m[c]=len(r) ; r+=str((c*10)//d) ; c = ((c*10)%d)
+        return r
+
