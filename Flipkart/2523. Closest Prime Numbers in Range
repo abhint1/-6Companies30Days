@@ -1,0 +1,31 @@
+#Flipcart
+2523. Closest Prime Numbers in Range
+
+
+class Solution:
+    def closestPrimes(self, left: int, right: int) -> List[int]:
+        def check_prime(n):
+            for i in range(2,int(n**0.5)+1):
+                if n%i==0:
+                    return False
+                
+            return True
+        ans, found = [-1, -1], False
+        start, diff = left, 1e18
+        while start < right + 1:
+            if check_prime(start):
+                for num2 in range(start + 1, right + 1):
+                    if check_prime(num2):
+                        found = True
+                        break
+                if found and 0 < num2 - start < diff and start > 1:
+                    ans = [start, num2]
+                    diff = num2 - start
+                    start = num2
+                else:
+                    start += 1
+            else:
+                start += 1
+            if 1 <= diff <= 2:
+                break
+        return ans
