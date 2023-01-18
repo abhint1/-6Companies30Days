@@ -1,0 +1,27 @@
+#Goldman Sachs
+659. Split Array into Consecutive Subsequences
+
+from collections import defaultdict
+class Solution:
+    def isPossible(self, nums: List[int]) -> bool:
+        freq, need = defaultdict(int), defaultdict(int)
+        for v in nums:
+            freq[v] += 1
+        for v in nums:
+            if freq[v] == 0: # already used in other subsequence
+                continue
+            if need[v] > 0: # can add to an existing subsequence
+                freq[v] -= 1 # to mark this value being used already.
+                need[v] -= 1
+                need[v+1] += 1 # need for the next number
+            elif freq[v] >0 and freq[v+1] > 0 and freq[v+2] > 0: # we have to create a new subsequence. Make sure its length more than or equal to 3.
+                freq[v] -= 1
+                freq[v+1] -= 1
+                freq[v+2] -= 1
+                need[v+3] += 1 # need for the next number
+            else:
+                return False
+        return True
+        
+
+        
