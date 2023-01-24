@@ -1,0 +1,143 @@
+#Google
+528. Random Pick with Weight
+
+
+class Solution:
+
+    def __init__(self, w: List[int]):
+        self.w=w
+
+    def pickIndex(self) -> int:
+        # print(random.choices(range(len(self.w)), weights=self.w)[0])
+        return random.choices(range(len(self.w)), weights=self.w)[0]
+
+
+# Your Solution object will be instantiated and called as such:
+# obj = Solution(w)
+# param_1 = obj.pickIndex()
+
+
+
+
+
+
+# used for random number generation
+import random
+
+class Solution:
+    def __init__(self, w: List[int]):
+        self.w = w
+		# 1. calculate relative frequency
+        denom = sum(self.w)
+        for i in range(len(self.w)):
+            self.w[i] = self.w[i] / denom
+        # 2. put relative frequencies on the number line between 0 and 1
+		# Note self.w[-1] = 1
+        for i in range(1,len(self.w)):
+            self.w[i] += self.w[i-1]
+        
+    def pickIndex(self) -> int:
+		
+		# this is where we pick the index
+        N = random.uniform(0,1)
+      
+        flag = 1
+        index = -1
+        
+		# test each region of the numberline to see if N falls in it, if it 
+		# does not then go to the next index and check if N falls in it
+		# this is gaurenteed to break because of previous normalization
+        while flag:
+            index +=1 
+           
+           
+     
+            if N <= self.w[index]:
+                flag = 0
+        
+    
+        return index
+
+
+'''
+Pseudocode
+1. Initialize class
+2. Get a list of all unique values
+3. normalize weights
+4. put weights on the number line
+5. If a uniform varialbe falls in the range of a value that value is returned
+'''
+
+
+
+
+
+
+
+
+
+import bisect
+import random
+
+class Solution:
+
+    def __init__(self, w: List[int]):
+
+        w=list(map(lambda x:x/sum(w),w))
+        for x in range(1,len(w)) :
+            w[x]+=w[x-1]
+        self.w=w
+        
+    
+        
+
+    def pickIndex(self) -> int:
+        r=random.uniform(0,1)
+        return bisect.bisect_left(self.w,r)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+class Solution:
+  def __init__(self, w):
+    ep = 10e-5
+    self.N, summ = len(w), sum(w)
+    weights = [elem/summ for elem in w]
+    Dic_More, Dic_Less, self.Boxes = {}, {}, []
+    
+    for i in range(self.N):
+      if weights[i] >= 1/self.N:
+        Dic_More[i] = weights[i]
+      else:
+        Dic_Less[i] = weights[i]
+
+    while Dic_More and Dic_Less:
+      t_1 = next(iter(Dic_More))
+      t_2 = next(iter(Dic_Less))
+      self.Boxes.append([t_2,t_1,Dic_Less[t_2]*self.N])
+
+      Dic_More[t_1] -= (1/self.N - Dic_Less[t_2])
+      if Dic_More[t_1] < 1/self.N - ep:
+        Dic_Less[t_1] = Dic_More[t_1]
+        Dic_More.pop(t_1)
+      Dic_Less.pop(t_2)
+    
+    for key in Dic_More: self.Boxes.append([key])
+
+  def pickIndex(self):
+    r = random.uniform(0, 1)
+    Box_num = int(r*self.N)
+    if len(self.Boxes[Box_num]) == 1:
+      return self.Boxes[Box_num][0]
+    else:
+      q = random.uniform(0, 1)
+      if q < self.Boxes[Box_num][2]:
+        return self.Boxes[Box_num][0]
+      else:
+        return self.Boxes[Box_num][1]
