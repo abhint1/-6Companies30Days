@@ -1,0 +1,14 @@
+#Flipkart
+791. Custom Sort String
+
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+        c=Counter(s)
+        res=""
+        for i in order:
+            if i in c:
+                res+=i*c[i]
+        for i in s:
+            if i not in res:
+                res+=i*c[i]
+        return res
