@@ -1,0 +1,13 @@
+#Flipkart
+1461. Check If a String Contains All Binary Codes of Size K
+
+class Solution:
+    def hasAllCodes(self, s: str, k: int) -> bool:
+        n=len(s)
+        if k>len(s):
+            return False
+        b=set()
+        for i in range(n-k+1):
+            b.add(s[i:i+k])
+            
+        return len(b)==2**k
