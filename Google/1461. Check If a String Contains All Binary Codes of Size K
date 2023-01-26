@@ -1,0 +1,20 @@
+#Google
+1461. Check If a String Contains All Binary Codes of Size K
+
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        heap=[(grid[0][0],0,0)]
+        ans=0
+        visited=set()
+        R=len(grid)
+        C=len(grid[0])
+        while heap:
+            mx,r,c=heappop(heap)
+            
+            ans=max(ans,mx)
+            if r==R-1 and c==C-1:
+                return ans
+            for x,y in [(1,0),(0,1),(-1,0),(0,-1)]:
+                if 0<=r+x<R and 0<=c+y<C and (r+x,c+y) not in visited:
+                    heappush(heap,(grid[r+x][c+y],r+x,c+y))
+                    visited.add((r+x,c+y))
