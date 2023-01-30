@@ -1,0 +1,28 @@
+#Amazon
+1348. Tweet Counts Per Frequency
+
+
+
+class TweetCounts:
+
+    def __init__(self):
+        self.tweets = collections.defaultdict(list)
+
+    def recordTweet(self, tweetName: str, time: int) -> None:
+        self.tweets[tweetName].append(time)
+
+    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> List[int]:
+        frequency = 60 if freq == 'minute' else 3600 if freq == 'hour' else 86400 
+        # total chunks 
+        chunks = (endTime - startTime) // frequency + 1
+        res = [0] * chunks
+        for time in self.tweets[tweetName]:
+            # figure out in which time chunk does the time belong and then update the result array
+            if time >= startTime and time <= endTime:
+                chunk = (time - startTime) // frequency
+                res[chunk] += 1
+        return res
+# Your TweetCounts object will be instantiated and called as such:
+# obj = TweetCounts()
+# obj.recordTweet(tweetName,time)
+# param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime)
