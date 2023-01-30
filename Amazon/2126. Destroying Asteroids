@@ -1,0 +1,10 @@
+#Amazon
+2126. Destroying Asteroids
+class Solution:
+    def asteroidsDestroyed(self, mass: int, a: List[int]) -> bool:
+        for i in sorted(a):
+            if i<=mass:
+                mass+=i
+            else:
+                return False
+        return True
