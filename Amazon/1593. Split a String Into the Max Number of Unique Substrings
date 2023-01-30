@@ -1,0 +1,21 @@
+#Amazon
+1593. Split a String Into the Max Number of Unique Substrings
+
+
+class Solution:
+    def maxUniqueSplit(self, s: str) -> int:
+        def help(i,s,st,temp):
+            if i==len(s):
+                return 0
+            else:
+                temp+=s[i]
+                op1,op2=0,0
+                if temp not in st:
+                    st.add(temp)
+                    op1=1+help(i+1,s,st,"")
+                    st.remove(temp)
+                op2=help(i+1,s,st,temp)
+                return max(op1,op2)
+        
+        st=set()
+        return help(0,s,st,"")
