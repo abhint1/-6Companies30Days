@@ -1,0 +1,48 @@
+#Google
+2274. Maximum Consecutive Floors Without Special Floors
+
+
+
+
+
+
+
+
+
+
+
+class Solution:
+    def maxConsecutive(self, bottom: int, top: int, special: List[int]) -> int:
+        special = sorted(special)
+        res = max(min(special) - bottom , top - max(special))
+        for i in range(len(special)-1):
+            res = max(res , special[i+1] - special[i] - 1)
+
+        return res
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # m=0
+        # fc=0
+        # for i in range(bottom,top+1):
+        #     if i not in special:
+        #         fc+=1
+        #         m=max(m,fc)
+        #     else:
+        #         fc=0
+        # return m
