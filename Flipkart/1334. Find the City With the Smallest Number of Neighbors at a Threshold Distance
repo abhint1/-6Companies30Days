@@ -1,0 +1,44 @@
+#flipkart
+using warhsall algorithm
+1334. Find the City With the Smallest Number of Neighbors at a Threshold Distance
+
+Explanation
+Becasue O(N^3) is accepted in this problem, we don't need a very fast solution.
+we can simply use Floyd algorithm to find the minium distance any two cities.
+
+Reference Floyd–Warshall algorithm
+
+I first saw @awice using it long time ago.
+It's really easy and makes a lot sense.
+
+Iterate all point middle point k,
+iterate all pairs (i,j).
+If it go through the middle point k,
+dis[i][j] = dis[i][k] + dis[k][j].
+
+
+Complexity
+Time O(N^3)
+Space O(N^2)
+
+
+
+
+
+class Solution:
+    def findTheCity(self, n: int, edges: List[List[int]], dt: int) -> int:
+        dis = [[float('inf')] * n for _ in range(n)]
+        for i, j, w in edges:
+            dis[i][j] = dis[j][i] = w
+        # print(dis)
+        for i in range(n):
+            dis[i][i] = 0
+        # print(dis)
+        for k in range(n):
+            for i in range(n):
+                for j in range(n):
+                    dis[i][j] = min(dis[i][j], dis[i][k] + dis[k][j])
+        # print(dis)
+        res = {sum(d <= dt for d in dis[i]): i for i in range(n)}
+        # print(res)
+        return res[min(res)]
